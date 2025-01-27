@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,21 @@
  * limitations under the License.
  */
 
-#pragma once
+#ifndef ANDROID_VOLD_WRITE_BOOSTER_H
+#define ANDROID_VOLD_WRITE_BOOSTER_H
 
-#include <fstab/fstab.h>
+#include <cstdint>
 
-extern android::fs_mgr::Fstab fstab_default;
+namespace android {
+namespace vold {
 
-#define DATA_MNT_POINT "/data"
-#define METADATA_MNT_POINT "/metadata"
+int32_t GetWriteBoosterBufferSize();
+int32_t GetWriteBoosterBufferAvailablePercent();
+bool SetWriteBoosterBufferFlush(bool enable);
+bool SetWriteBoosterBufferOn(bool enable);
+int32_t GetWriteBoosterLifeTimeEstimate();
 
-#ifdef CONFIG_HW_DISK_ENCRYPT_PERF
-void get_blkdev_start_sector(int fd, unsigned long* st_sec);
+}  // namespace vold
+}  // namespace android
+
 #endif
-std::string GetUfsHostControllerSysfsPath();
-
